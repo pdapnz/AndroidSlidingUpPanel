@@ -1091,6 +1091,27 @@ public class SlidingUpPanelLayout extends ViewGroup {
         return mSlideState;
     }
 
+
+    /**
+     * Change panel state to the given state with
+     *
+     * @param state - new panel state
+     * @param animate - perform or not animation during state change
+     */
+    public void setPanelState(PanelState state, boolean animate) {
+        if (animate) {
+            setPanelState(state);
+        } else {
+            if (state == PanelState.HIDDEN) {
+                mSlideableView.setVisibility(View.INVISIBLE);
+            } else {
+                mSlideableView.setVisibility(View.VISIBLE);
+            }
+            setPanelStateInternal(state);
+            mMainView.requestLayout();
+        }
+    }
+
     /**
      * Change panel state to the given state with
      *
