@@ -1102,18 +1102,22 @@ public class SlidingUpPanelLayout extends ViewGroup {
         if (animate) {
             setPanelState(state);
         } else {
-            if (state == PanelState.EXPANDED) {
-                onPanelDragged(0);
-            } else {
-                int defaultHeight = getHeight() - getPaddingBottom() - getPaddingTop() - mPanelHeight;
-                onPanelDragged(defaultHeight);
+            if (mMainView != null) {
+                if (state == PanelState.EXPANDED) {
+                    onPanelDragged(0);
+                } else {
+                    int defaultHeight = getHeight() - getPaddingBottom() - getPaddingTop() - mPanelHeight;
+                    onPanelDragged(defaultHeight);
+                }
+                mMainView.requestLayout();
             }
-            mMainView.requestLayout();
             setPanelStateInternal(state);
-            if (state == PanelState.HIDDEN) {
-                mSlideableView.setVisibility(View.INVISIBLE);
-            } else {
-                mSlideableView.setVisibility(View.VISIBLE);
+            if (mSlideableView != null) {
+                if (state == PanelState.HIDDEN) {
+                    mSlideableView.setVisibility(View.INVISIBLE);
+                } else {
+                    mSlideableView.setVisibility(View.VISIBLE);
+                }
             }
         }
     }
